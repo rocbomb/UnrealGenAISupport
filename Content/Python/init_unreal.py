@@ -29,7 +29,7 @@ def start_mcp_server():
         # Find our plugin's Python directory
         plugin_python_path = None
         for path in sys.path:
-            if "GenerativeAISupport/Content/Python" in path:
+            if "UnrealGenAISupport/Content/Python" in path:
                 plugin_python_path = path
                 break
 
@@ -114,7 +114,7 @@ def initialize_socket_server():
             # Find our plugin's Python directory
             plugin_python_path = None
             for path in sys.path:
-                if "GenerativeAISupport/Content/Python" in path:
+                if "UnrealGenAISupport/Content/Python" in path:
                     plugin_python_path = path
                     break
     
