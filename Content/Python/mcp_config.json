@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "unreal-engine": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "e:/UE5/WorkSpace/UE_AIGen/Plugins/UnrealGenAISupport/Content/Python",
+        "run",
+        "--python",
+        "3.12",
+        "mcp_server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}

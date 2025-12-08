@@ -259,8 +259,10 @@ UMaterial* UGenActorUtils::CreateMaterial(const FString& MaterialName, const FLi
     if (ConstantColor)
     {
         ConstantColor->Constant = Color;
-        // Connect to base color
-        UMaterialEditingLibrary::ConnectMaterialProperty(ConstantColor, "RGB", EMaterialProperty::MP_BaseColor);
+        // Connect to base color - need to specify the Material context
+        Material->GetExpressionCollection().AddExpression(ConstantColor);
+        Material->BaseColor.Expression = ConstantColor;
+        ConstantColor->ConnectExpression(&Material->BaseColor, 0);
     }
     
     // Set material to be fully created and initialized
