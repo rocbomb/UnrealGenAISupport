@@ -259,10 +259,20 @@ UMaterial* UGenActorUtils::CreateMaterial(const FString& MaterialName, const FLi
     if (ConstantColor)
     {
         ConstantColor->Constant = Color;
-        // Connect to base color - need to specify the Material context
-        Material->GetExpressionCollection().AddExpression(ConstantColor);
-        Material->BaseColor.Expression = ConstantColor;
-        ConstantColor->ConnectExpression(&Material->BaseColor, 0);
+        // Connect to base color using the correct MaterialEditingLibrary method
+        //UMaterialEditingLibrary::ConnectMaterialExpressions(ConstantColor, "Output", Material->GetExpressionInputForProperty(MP_BaseColor), "");
+
+        // UE5中的正确连接方式
+        bool bSuccess = UMaterialEditingLibrary::ConnectMaterialProperty(
+            ConstantColor,          // 源表达式
+            TEXT(""),              // 输出引脚名（Constant3Vector使用空字符串）
+            MP_BaseColor           // 材质属性
+        );
+
+        if (!bSuccess)
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to connect material property"));
+        }
     }
     
     // Set material to be fully created and initialized
